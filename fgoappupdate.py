@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 inifile = "fgoappupdate.ini"
 
 appstore_url = "https://apps.apple.com/jp/app/fate-grand-order/id1015521325"
+avatar_url = "https://raw.githubusercontent.com/fgosc/fgo_update/main/info.png"
 basedir = Path(__file__).resolve().parent
 
 logger = logging.getLogger(__name__)
@@ -28,8 +29,13 @@ def check_googlePlayStore(webhook_url, version_prev):
     if result["version"] != version_prev:
         content = {
                         "username": "FGO アップデート",
+                        "avatar_url": avatar_url,
                         "embeds": [{
                                 "title": "FGO アプリアップデート (Google Play Store)",
+                                "url": result["url"],
+                                "thumbnail": {
+                                              "url": result["icon"]
+                                              },
                                 "fields": [
                                     {
                                         "name": "バージョン",
@@ -69,8 +75,13 @@ def check_appStore(webhook_url, version_prev):
                 break
         content = {
                         "username": "FGO アップデート",
+                        "avatar_url": avatar_url,
                         "embeds": [{
                                 "title": "FGO アプリアップデート (AppStore)",
+                                "url": appstore_url,
+                                "thumbnail": {
+                                              "url": "https://www.fate-go.jp/assets/img/common/icon_game.png"
+                                              },
                                 "fields": [
                                     {
                                         "name": "バージョン",
